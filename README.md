@@ -6,6 +6,8 @@ A fullstack AI chat application built with React, Node.js, MongoDB, OpenAI/Googl
 
 ## Installation
 
+Please use node version >=22.12.0 || ^24.0.0
+
 ### 1. Install Backend Dependencies
 
 ```bash
