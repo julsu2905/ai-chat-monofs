@@ -485,6 +485,7 @@ function App() {
               </div>
               <DropdownModels
                 value={selectedModel}
+                parentValue={selectedProvider}
                 onValueChange={handleModelChange}
                 options={availableProviders}
                 disabled={isThinking || isStreaming}

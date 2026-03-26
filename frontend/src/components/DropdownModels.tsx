@@ -13,6 +13,7 @@ import { useState } from "react";
 
 interface DropdownModelsProps extends React.HTMLAttributes<HTMLSelectElement> {
   value: string;
+  parentValue: string;
   onValueChange: (provider: string, model: string) => void;
   options: Provider[];
   disabled?: boolean;
@@ -23,6 +24,7 @@ const DropdownModels = ({
   onValueChange,
   options,
   disabled,
+  parentValue,
 }: DropdownModelsProps) => {
   const [open, setOpen] = useState(false);
   return (
@@ -33,7 +35,10 @@ const DropdownModels = ({
           disabled={disabled}
           className="chat-item rounded-full!"
         >
-          {value}
+          {options
+            .find((option) => option.name === parentValue)
+            ?.supportedModels.find((model) => model.id === value)?.name ||
+            "Select Model"}
           <ChevronDownIcon className="ml-2" />
         </Button>
       </PopoverTrigger>
@@ -53,7 +58,7 @@ const DropdownModels = ({
                       variant="default"
                       key={model.id}
                       onClick={() => {
-                        onValueChange(option.name, model.name);
+                        onValueChange(option.name, model.id);
                         setOpen(false);
                       }}
                       className={clsx("col-span-1 chat-item", {
