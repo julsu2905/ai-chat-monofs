@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import axios from "axios";
 import dayjs from "dayjs";
 import {
@@ -443,6 +443,7 @@ function App() {
               </div>
             </div>
           )}
+          <ScrollBar orientation="vertical" />
         </ScrollArea>
 
         {/* Input Area */}
@@ -496,6 +497,7 @@ function App() {
               onKeyDown={handleKeyDown}
               placeholder="Type your message here..."
               rows={1}
+              className="text-sm md:text-base md:leading-7"
               disabled={isThinking || isStreaming || isUploading}
             />
             <Button

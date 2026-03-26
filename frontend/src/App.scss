@@ -318,12 +318,12 @@
 .chat-area {
   flex: 1;
   overflow-y: auto;
+  min-height: 0;
   background: rgb(var(--color-background));
 
   // Target the Radix ScrollArea viewport
   > div[data-radix-scroll-area-viewport] {
     padding: 2rem;
-
     > div {
       display: flex !important;
       flex-direction: column;
