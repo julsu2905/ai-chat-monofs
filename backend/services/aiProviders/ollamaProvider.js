@@ -1,8 +1,15 @@
-const axios = require("axios");
+const BaseAIProvider = require("./baseProvider");
+const { Ollama } = require("ollama");
 
-class OllamaService {
-  constructor() {
-    this.apiUrl = process.env.OLLAMA_API_URL || "http://localhost:11434";
+class OllamaProvider extends BaseAIProvider {
+  constructor(config = {}) {
+    super(config);
+    // To use Ollama Cloud, set OLLAMA_API_URL to https://cloud.ollama.com/v1 and OLLAMA_API_KEY
+    // To use local Ollama, set OLLAMA_API_URL to your local endpoint and OLLAMA_AUTH_TOKEN if needed
+    this.client = new Ollama({
+      host: process.env.OLLAMA_API_URL || "http://localhost:11434",
+      headers: { Authorization: "Bearer " + process.env.OLLAMA_API_KEY },
+    });
     this.model = process.env.OLLAMA_MODEL || "llama2";
   }
 
@@ -19,14 +26,17 @@ class OllamaService {
           content: prompt,
         },
       ];
-
-      const response = await axios.post(`${this.apiUrl}/api/chat`, {
+      console.log(
+        "🚀 ~ OllamaProvider ~ generateResponse ~ messages:",
+        messages,
+      );
+      const response = await this.client.chat({
         model: this.model,
         messages: messages,
         stream: false,
       });
 
-      return response.data.message;
+      return response.message;
     } catch (error) {
       console.error("Ollama API error:", error.message);
       throw new Error("Failed to generate AI response");
@@ -43,8 +53,9 @@ class OllamaService {
 
   async checkAvailability() {
     try {
-      const response = await axios.get(`${this.apiUrl}/api/tags`);
-      const models = response.data.models || [];
+      const response = await this.client.list();
+
+      const models = response.models || [];
       const isAvailable = models.some((m) => m.name.includes(this.model));
       return { available: isAvailable, models: models.map((m) => m.name) };
     } catch (error) {
@@ -56,23 +67,22 @@ class OllamaService {
     return {
       name: "ollama",
       model: this.model,
-      supportsStreaming: false,
+      supportsStreaming: true,
       supportedModels: [
         {
-          id: "llama2",
-          name: "Llama 2",
+          id: "gemma3:12b",
+          name: "Gemma 3",
           contextWindow: 4096,
-          description: "Llama 2 (local, via Ollama)",
+          description: "Gemma 3 (local, via Ollama)",
         },
         {
-          id: "llama3",
-          name: "Llama 3",
+          id: "ministral-3:8b",
+          name: "Ministral 3",
           contextWindow: 8192,
-          description: "Llama 3 (local, via Ollama)",
+          description: "Ministral 3 (local, via Ollama)",
         },
       ],
     };
   }
 }
-
-module.exports = new OllamaService();
+module.exports = OllamaProvider;

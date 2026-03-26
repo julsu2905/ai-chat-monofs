@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "./ui/button";
 import { ChevronDownIcon } from "lucide-react";
+import clsx from "clsx";
+import { useState } from "react";
 
 interface DropdownModelsProps extends React.HTMLAttributes<HTMLSelectElement> {
   value: string;
@@ -22,8 +24,9 @@ const DropdownModels = ({
   options,
   disabled,
 }: DropdownModelsProps) => {
+  const [open, setOpen] = useState(false);
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
@@ -49,8 +52,13 @@ const DropdownModels = ({
                     <Button
                       variant="default"
                       key={model.id}
-                      onClick={() => onValueChange(option.name, model.name)}
-                      className="col-span-1 chat-item"
+                      onClick={() => {
+                        onValueChange(option.name, model.name);
+                        setOpen(false);
+                      }}
+                      className={clsx("col-span-1 chat-item", {
+                        active: value === model.name,
+                      })}
                     >
                       <p>{model.name}</p>
                     </Button>

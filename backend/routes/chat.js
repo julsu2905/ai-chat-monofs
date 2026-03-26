@@ -52,7 +52,6 @@ router.post("/message", async (req, res) => {
       content: message,
       timestamp: new Date(),
     };
-    chat.messages.push(userMessage);
 
     // Get conversation history (last 10 messages for context)
     const recentMessages = chat.messages.slice(-10);
@@ -73,6 +72,7 @@ router.post("/message", async (req, res) => {
       timestamp: new Date(),
       usage: aiResponse.usage,
     };
+    chat.messages.push(userMessage);
     chat.messages.push(assistantMessage);
 
     // Save to database

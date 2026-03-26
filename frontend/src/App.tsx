@@ -78,11 +78,14 @@ function App() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Auto-scroll to bottom when messages change
-  useEffect(() => {
+  const scrollToBottom = () => {
     if (chatAreaRef.current) {
       chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
     }
+  };
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    scrollToBottom();
   }, [messages, isThinking, streamingText]);
 
   // Auto-resize textarea
@@ -194,6 +197,7 @@ function App() {
 
   const handleSend = async () => {
     if (!input.trim() || isThinking) return;
+    scrollToBottom();
 
     // Prepare message content with file URL if attached
     let messageContent = input;
@@ -274,6 +278,7 @@ function App() {
     };
 
     setMessages((prev) => [...prev, assistantMessage]);
+    setTimeout(scrollToBottom, 0);
     setStreamingText("");
     setIsStreaming(false);
   };
@@ -309,6 +314,7 @@ function App() {
       }
 
       setCurrentChatId(chatId);
+      setTimeout(scrollToBottom, 0);
       if (width < 768) {
         setSidebarOpen(false);
       }
@@ -377,7 +383,16 @@ function App() {
         </header>
 
         {/* Chat Area */}
-        <ScrollArea className="chat-area" ref={chatAreaRef}>
+        <ScrollArea
+          className="chat-area"
+          ref={(el) => {
+            if (el) {
+              chatAreaRef.current = el.querySelector(
+                "[data-radix-scroll-area-viewport]",
+              ) as HTMLDivElement;
+            }
+          }}
+        >
           {messages.length === 0 && !isThinking && !isStreaming && (
             <div className="empty-state">
               <MessageSquare />

@@ -1,41 +1,71 @@
 # AI Chat Application
 
-A fullstack AI chat application built with React, Node.js, MongoDB, and Ollama for local AI model inference.
+A fullstack AI chat application built with React, Node.js, MongoDB, OpenAI/Google Gemini API model and Ollama Cloud for AI model inference.
 
-## Features
+# In-short how to run project:
 
-✅ **Chat Interface**
+## Installation
 
-- Clean, modern UI with gradient design
-- Multiline text input support
-- Real-time message display
-- Scrollable conversation history
-- Auto-scrolling to latest messages
+### 1. Install Backend Dependencies
 
-✅ **AI Integration**
+```bash
+cd backend
+yarn install
+cp .env.example .env
+```
 
-- Local AI model using Ollama
-- Context-aware conversations
-- Real-time response generation
+### 2. Install Frontend Dependencies
 
-✅ **File Upload**
+```bash
+cd ../frontend
+yarn install
+cp .env.example .env
+```
 
-- Upload images, PDFs, text files, and more
-- File size limit: 10MB
-- Progress indicator
-- File storage and retrieval
+## Configuration
 
-✅ **Data Persistence**
+.env.example fully configured
 
-- All chat history stored in MongoDB
-- Session-based conversations
-- Message timestamps
+**DISCLAIMER**
 
-✅ **REST API**
+This project supports multiple AI providers, including Ollama Cloud, OpenAI, and Google Gemini.
 
-- Well-structured API endpoints
-- Error handling
-- CORS enabled
+API keys for these services are not included in this repository to prevent security risks and unauthorized usage. Exposing API credentials in a public repository may lead to abuse and may violate provider policies (e.g., OpenAI API key safety guidelines).
+
+To run this project locally, please follow these steps:
+
+Obtain your own API key(s) from the provider(s) you wish to use:
+Ollama Cloud
+OpenAI
+Google Gemini
+Create a .env file in the backend directory based on .env.example.
+Add your API key(s):
+
+# Ollama Cloud (recommended)
+
+OLLAMA_API_KEY=your_ollama_api_key_here
+OLLAMA_API_URL=https://ollama.com
+OLLAMA_MODEL=llama3
+
+# OpenAI (optional)
+
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_MODEL=gpt-4o-mini
+
+# Google Gemini (optional)
+
+GOOGLE_API_KEY=your_google_api_key_here
+GEMINI_MODEL=gemini-1.5-pro
+Start the backend and frontend as described below.
+
+Notes:
+
+API keys are handled server-side only and are never exposed to the client.
+You only need to configure one provider to run the application.
+It is recommended to use a scoped API key with usage limits for testing.
+In production, additional safeguards such as rate limiting, logging, and monitoring should be applied.
+
+This approach follows standard security practices for handling sensitive credentials in fullstack applications.
 
 ## Tech Stack
 
@@ -52,14 +82,14 @@ A fullstack AI chat application built with React, Node.js, MongoDB, and Ollama f
 - MongoDB with Mongoose
 - Multer for file uploads
 - Ollama API integration
+- OpenAI/Google Gemini API integration
 
 ## Prerequisites
 
 Before running this application, ensure you have:
 
-1. **Node.js** (v16 or higher) - [Download here](https://nodejs.org/)
-2. **MongoDB** - [Download here](https://www.mongodb.com/try/download/community)
-3. **Ollama** - [Download here](https://ollama.ai/)
+1. **Node.js** (v20.13.0 or higher) - [Download here](https://nodejs.org/)
+2. **Ollama** - [Download here](https://ollama.ai/)
 
 ### Install Ollama Model
 
@@ -79,12 +109,20 @@ Verify Ollama is running:
 curl http://localhost:11434/api/tags
 ```
 
+#### Set API Key to Env file (see .env.example)
+
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_MODEL=gpt-4o-mini
+
+GOOGLE_API_KEY=your_google_api_key_here
+GEMINI_MODEL=gemini-1.5-pro
+
 ## Installation
 
 ### 1. Clone the repository
 
 ```bash
-cd ai-chat
+cd ai-chat-monofs
 ```
 
 ### 2. Install Backend Dependencies
@@ -112,6 +150,10 @@ PORT=5000
 MONGODB_URI=mongodb://localhost:27017/ai-chat
 OLLAMA_API_URL=http://localhost:11434
 OLLAMA_MODEL=llama2
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_MODEL=gpt-4o-mini
+GOOGLE_API_KEY=your_google_api_key_here
+GEMINI_MODEL=gemini-1.5-pro
 ```
 
 Update these values if needed:
@@ -129,26 +171,20 @@ REACT_APP_API_URL=http://localhost:5000/api
 
 ## Running the Application
 
-### 1. Start MongoDB
+### 1. MongoDB
 
-Make sure MongoDB is running:
-
-```bash
-# On macOS with Homebrew
-brew services start mongodb-community
-
-# On Linux
-sudo systemctl start mongod
-
-# Or run manually
-mongod --dbpath /path/to/data/db
-```
+I'm using MongoDB's cloud service cluster, store data in database test, collections: chats and files for this App
 
 ### 2. Start Ollama
 
 Ollama should be running in the background. If not:
 
 ```bash
+# Start Ollma
+ollama serve
+# New Terminal to pull model
+ollama pull llama2
+ollama pull llama3
 # Ollama runs as a service on macOS/Linux
 # On macOS, it starts automatically after installation
 # You can verify by running:
@@ -260,8 +296,6 @@ ai-chat/
 
 ### Ollama Connection Issues
 
-If you see "Ollama Offline":
-
 1. Make sure Ollama is installed and running
 2. Verify the model is pulled: `ollama list`
 3. Check Ollama is accessible: `curl http://localhost:11434/api/tags`
@@ -282,14 +316,6 @@ If port 5000 or 3000 is already in use:
 1. Change `PORT` in `backend/.env`
 2. Update `REACT_APP_API_URL` in `frontend/.env` accordingly
 3. Or kill the process using the port
-
-### File Upload Issues
-
-If file uploads fail:
-
-1. Check the `backend/uploads` directory exists and is writable
-2. Verify file size is under 10MB
-3. Ensure the file type is supported
 
 ## Development
 
@@ -321,19 +347,6 @@ The chat messages are stored with this schema:
   updatedAt: Date
 }
 ```
-
-## Future Enhancements
-
-- [ ] Multiple chat sessions/threads
-- [ ] User authentication
-- [ ] Message editing and deletion
-- [ ] Export chat history
-- [ ] File preview in chat
-- [ ] Voice input support
-- [ ] Streaming responses
-- [ ] Markdown rendering
-- [ ] Code syntax highlighting
-- [ ] Theme customization
 
 ## License
 

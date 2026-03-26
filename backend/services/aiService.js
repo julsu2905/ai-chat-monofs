@@ -1,6 +1,6 @@
 const OpenAIProvider = require("./aiProviders/openaiProvider");
 const GeminiProvider = require("./aiProviders/geminiProvider");
-const OllamaService = require("./aiProviders/ollamaService");
+const OllamaProvider = require("./aiProviders/ollamaProvider");
 
 class AIService {
   constructor() {
@@ -13,12 +13,13 @@ class AIService {
     console.log("\n=== Initializing AI Providers ===");
     console.log("OPENAI_API_KEY exists:", !!process.env.OPENAI_API_KEY);
     console.log("GOOGLE_API_KEY exists:", !!process.env.GOOGLE_API_KEY);
+    console.log("OLLAMA_API_URL exists:", !!process.env.OLLAMA_API_URL);
 
     // Initialize Ollama if OLLAMA_API_URL or local server is available
     const ollamaUrl = process.env.OLLAMA_API_URL || "http://localhost:11434";
     if (ollamaUrl) {
       // Try to check Ollama availability synchronously (best effort)
-      const ollama = OllamaService;
+      const ollama = new OllamaProvider();
       ollama
         .checkAvailability()
         .then((result) => {
