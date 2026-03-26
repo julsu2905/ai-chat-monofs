@@ -5,7 +5,6 @@ class GeminiProvider extends BaseAIProvider {
   constructor(config = {}) {
     super(config);
     this.model = config.model || process.env.GEMINI_MODEL || "gemini-1.5-pro";
-    // Gemini SDK automatically reads GOOGLE_API_KEY from environment
     this.client = new GoogleGenerativeAI();
   }
 
@@ -55,8 +54,6 @@ class GeminiProvider extends BaseAIProvider {
 
   async listModels() {
     try {
-      // Gemini API doesn't have a list models endpoint yet
-      // Return predefined list
       return this.getProviderInfo().supportedModels;
     } catch (error) {
       console.error("Error listing Gemini models:", error.message);

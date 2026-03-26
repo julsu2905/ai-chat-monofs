@@ -80,6 +80,7 @@ router.post("/", upload.single("file"), async (req, res) => {
         size: fileRecord.size,
         mimetype: fileRecord.mimetype,
         uploadedAt: fileRecord.uploadedAt,
+        url: `/img/${fileRecord.filename}`,
       },
     });
   } catch (error) {

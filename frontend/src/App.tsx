@@ -100,7 +100,7 @@ function App() {
       setChats(
         response.data.map((session) => ({
           id: session.sessionId,
-          title: `Chat ${dayjs(session.updatedAt).format("MMM D, YYYY")}`,
+          title: `Chat at ${dayjs(session.updatedAt).format("HH:mm MMM D, YYYY")}`,
           lastMessage: "",
         })),
       );
@@ -395,7 +395,9 @@ function App() {
                   <Bot size={16} />
                 )}
               </div>
-              <div className="message-content">{message.content}</div>
+              <div className="message-content">
+                <div className="py-1 px-2">{message.content}</div>
+              </div>
             </div>
           ))}
 

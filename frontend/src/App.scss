@@ -356,7 +356,7 @@
     .message-content {
       flex: 1;
       padding: 0.5rem 1rem;
-      border-radius: 1rem;
+      border-radius: 50px;
       word-break: break-word;
       overflow-wrap: break-word;
       white-space: pre-wrap;
@@ -406,7 +406,7 @@
       .message-content {
         background: rgb(var(--color-primary));
         color: rgb(var(--color-primary-foreground));
-        border-radius: 100px;
+        border-radius: 50px;
       }
     }
 
@@ -423,7 +423,7 @@
         background: rgb(var(--color-muted));
         color: rgb(var(--color-foreground));
         border: 1px solid rgb(var(--color-border));
-        border-radius: 100px;
+        border-radius: 50px;
       }
     }
   }
