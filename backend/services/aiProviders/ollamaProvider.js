@@ -70,10 +70,10 @@ class OllamaProvider extends BaseAIProvider {
       supportsStreaming: true,
       supportedModels: [
         {
-          id: "gemma3:12b",
-          name: "Gemma 3",
+          id: "qwen3.5",
+          name: "Qwen 3.5",
           contextWindow: 4096,
-          description: "Gemma 3 (local, via Ollama)",
+          description: "Qwen 3.5 (local, via Ollama)",
         },
         {
           id: "ministral-3:8b",

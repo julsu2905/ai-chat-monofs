@@ -9,7 +9,7 @@ class AIService {
     this.initializeProviders();
   }
 
-  initializeProviders() {
+  async initializeProviders() {
     console.log("\n=== Initializing AI Providers ===");
     console.log("OPENAI_API_KEY exists:", !!process.env.OPENAI_API_KEY);
     console.log("GOOGLE_API_KEY exists:", !!process.env.GOOGLE_API_KEY);
@@ -20,7 +20,7 @@ class AIService {
     if (ollamaUrl) {
       // Try to check Ollama availability synchronously (best effort)
       const ollama = new OllamaProvider();
-      ollama
+      await ollama
         .checkAvailability()
         .then((result) => {
           if (result.available) {

@@ -381,7 +381,6 @@ function App() {
             <h1>Template.net</h1>
           </div>
         </header>
-
         {/* Chat Area */}
         <ScrollArea
           className="chat-area"
@@ -445,7 +444,6 @@ function App() {
           )}
           <ScrollBar orientation="vertical" />
         </ScrollArea>
-
         {/* Input Area */}
         <div className="input-area">
           {attachedFile && (
