@@ -16,12 +16,12 @@
   --color-primary-foreground: 255 255 255;
 
   /* Secondary - Light Gray */
-  --color-secondary: 243 244 246; /* gray-100 */
-  --color-secondary-foreground: 17 24 39;
+  --color-secondary: 192 213 213; /* gray-100 */
+  --color-secondary-foreground: 8 58 70;
 
   /* Muted - Soft Gray */
-  --color-muted: 249 250 251; /* gray-50 */
-  --color-muted-foreground: 107 114 128; /* gray-500 */
+  --color-muted: 229 225 221; /* gray-50 */
+  --color-muted-foreground: 8 58 70; /* gray-500 */
 
   /* Accent - Light Blue */
   --color-accent: 239 246 255; /* blue-50 */
@@ -61,4 +61,6 @@ body {
   min-height: 100vh;
   background: rgb(var(--color-background));
   color: rgb(var(--color-foreground));
+  --color-muted: 229 225 221; /* gray-50 */
+  --color-muted-foreground: 8 58 70; /* gray-500 */
 }

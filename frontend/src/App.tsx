@@ -410,7 +410,7 @@ function App() {
                 )}
               </div>
               <div className="message-content">
-                <div className="py-1 px-2">{message.content}</div>
+                <div className="py-2 px-3">{message.content}</div>
               </div>
             </div>
           ))}
