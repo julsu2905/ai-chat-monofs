@@ -351,7 +351,7 @@ function App() {
         </div>
         <Button
           variant="outline"
-          className="new-chat-btn"
+          className="new-chat-btn cursor-pointer"
           onClick={handleNewChat}
         >
           <Plus size={16} className="mr-2" />

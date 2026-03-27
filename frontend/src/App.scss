@@ -9,11 +9,11 @@
 // Sidebar
 .sidebar {
   width: 260px;
-  border-right: 1px solid rgb(var(--color-border));
+  border-right: 1px solid #bcc7dd;
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease;
-  background: rgb(var(--color-background));
+  background: #f0f4f7;
   box-shadow: 2px 0 16px rgba(0, 0, 0, 0.05);
   &.closed {
     transform: translateX(-100%);
@@ -399,13 +399,13 @@
       flex-direction: row-reverse;
 
       .avatar {
-        background: #3b82f6;
-        color: white;
+        background: #d9e4ea;
+        color: #2a3439;
       }
 
       .message-content {
-        background: #3b82f6;
-        color: white;
+        background: #d9e4ea;
+        color: #2a3439;
         border-radius: 50px;
       }
     }
@@ -424,6 +424,7 @@
         color: rgb(var(--color-foreground));
         border: 1px solid rgb(var(--color-border));
         border-radius: 50px;
+        backdrop-filter: blur(4px);
       }
     }
   }
@@ -527,8 +528,8 @@
 // Input Area
 .input-area {
   padding: 1.5rem;
-  border-top: 1px solid rgb(var(--color-border));
-  background: rgb(var(--color-background));
+  // border-top: 1px solid #bcc7dd;
+  background: white;
 
   .input-wrapper {
     display: flex;
@@ -537,9 +538,9 @@
     flex-wrap: wrap;
     max-width: 1024px;
     margin: 0 auto;
-    background: var(--color-akoa);
+    background: #f7f9fb;
     padding: 0.75rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
     border-radius: 1.25rem;
     border: 2px solid rgb(var(--color-border));
     transition: border-color 0.2s ease;
@@ -743,9 +744,9 @@
     position: fixed;
     z-index: 50;
     height: 100vh;
-    background: rgb(var(--color-background));
+    background: #f0f4f7;
     box-shadow: 2px 0 16px rgba(0, 0, 0, 0.1);
-
+    border-right: 1px solid #bcc7dd;
     &.closed {
       transform: translateX(-100%);
     }
